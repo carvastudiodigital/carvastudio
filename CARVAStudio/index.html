@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CARVA Studio Digital — Identidad · Estrategia · Inteligencia Artificial</title>
+  <meta name="description" content="Integramos branding estratégico, diseño digital e inteligencia artificial para desarrollar marcas escalables, competitivas y orientadas a resultados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #0D1A2F;
+      --bg-deep:     #080f1c;
+      --bg-card:     #111e35;
+      --bg-card-alt: #0f1a2e;
+      --blue:        #1E90FF;
+      --blue-neon:   #008FFF;
+      --blue-glow:   rgba(30,144,255,.15);
+      --blue-border: rgba(30,144,255,.22);
+      --white:       #E5E5E5;
+      --gray:        #A0A4A8;
+      --serif:       'Playfair Display', serif;
+      --script:      'Dancing Script', cursive;
+      --sans:        'Inter', sans-serif;
+      --max:         1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    /* ===== LIGHTBOX ===== */
+    #lightbox { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.92); align-items:center; justify-content:center; cursor:zoom-out; }
+    #lightbox.open { display:flex; animation:lbIn .2s ease; }
+    @keyframes lbIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+    #lightbox img { max-width:92vw; max-height:92vh; object-fit:contain; border-radius:10px; box-shadow:0 0 60px rgba(30,144,255,.25); cursor:default; }
+    #lightbox-close { position:absolute; top:1.25rem; right:1.5rem; color:#fff; font-size:2rem; line-height:1; cursor:pointer; opacity:.7; transition:opacity .2s; }
+    #lightbox-close:hover { opacity:1; }
+    .svc-img img { cursor:zoom-in; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal { opacity:0; transform:translateY(36px); transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1); }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .reveal-s { opacity:0; transform:scale(.92); transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1); }
+    .reveal-s.in { opacity:1; transform:scale(1); }
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+    .d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}.d7{transition-delay:.56s}.d8{transition-delay:.64s}.d9{transition-delay:.72s}
+
+
+    /* ===== NAV ===== */
+    nav { position:fixed; top:0; width:100%; z-index:200; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; transition:background .35s,box-shadow .35s; }
+    nav.stuck { background:rgba(13,26,47,.93); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 1px 0 var(--blue-border); }
+    .nav-logo { display:flex; align-items:center; gap:.6rem; text-decoration:none; }
+    .nav-logo img { height:42px; width:auto; }
+    .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+    .nav-links a { color:var(--white); text-decoration:none; font-size:.82rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; transition:color .25s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--blue); transition:width .3s; }
+    .nav-links a:hover { color:var(--blue); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta { background:var(--blue)!important; color:#fff!important; padding:.45rem 1.2rem!important; border-radius:5px!important; transition:background .25s,transform .2s!important; }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:var(--blue-neon)!important; transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--white); border-radius:2px; transition:all .3s; }
+    body.nav-open .nav-links { display:flex!important; flex-direction:column; position:fixed; inset:0; background:rgba(13,26,47,.97); backdrop-filter:blur(20px); justify-content:center; align-items:center; gap:2.5rem; z-index:199; }
+    body.nav-open .nav-links a { font-size:1.2rem; }
+
+    /* ===== HERO ===== */
+    .hero { min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; padding:7rem 2rem 5rem; overflow:hidden; }
+    .hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(30,144,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,144,255,.06) 1px,transparent 1px); background-size:56px 56px; will-change:transform; }
+    .hero-radial { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:900px; height:900px; background:radial-gradient(ellipse at center,rgba(30,144,255,.11) 0%,transparent 65%); pointer-events:none; }
+    .hero-radial-2 { position:absolute; top:30%; right:-10%; width:500px; height:500px; background:radial-gradient(ellipse at center,rgba(0,143,255,.07) 0%,transparent 60%); pointer-events:none; }
+    .particle { position:absolute; border-radius:50%; background:var(--blue); animation:floatUp linear infinite; pointer-events:none; }
+    @keyframes floatUp { 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.55} 90%{opacity:.55} 100%{transform:translateY(-100vh) translateX(15px);opacity:0} }
+    .hero-inner { position:relative; z-index:2; text-align:center; max-width:900px; }
+    .hero-pill { display:inline-flex; align-items:center; background:rgba(30,144,255,.09); border:1px solid var(--blue-border); color:var(--white); font-size:.78rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:.42rem 1.25rem; border-radius:100px; margin-bottom:1.75rem; gap:.1rem; }
+    .hero-pill .sep { color:var(--blue); font-size:1.15em; line-height:0; position:relative; top:-.03em; margin:0 .35rem; font-weight:900; }
+    .hero-logo-img { margin-bottom: .75rem; }
+    .hero-logo-img img {
+      width: clamp(240px, 42vw, 340px);
+      height: auto;
+      filter: drop-shadow(0 0 28px rgba(30,144,255,.45));
+    }
+    .hero-tagline { font-size:clamp(.8rem,1.5vw,.95rem); color:var(--gray); letter-spacing:.18em; text-transform:uppercase; font-weight:300; margin-bottom:1.25rem; }
+    .hero-desc { font-size:clamp(.95rem,1.6vw,1.1rem); color:var(--gray); max-width:640px; margin:0 auto 2.75rem; line-height:1.85; }
+    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:.5rem; text-decoration:none; font-family:var(--sans); font-weight:600; font-size:.875rem; letter-spacing:.04em; border-radius:6px; padding:.875rem 2rem; transition:transform .2s,box-shadow .2s; cursor:pointer; border:none; }
+    .btn-primary { background:linear-gradient(135deg,var(--blue),var(--blue-neon)); color:#fff; box-shadow:0 0 28px rgba(30,144,255,.28); }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 48px rgba(30,144,255,.48); }
+    .btn-outline { background:transparent; color:var(--white); border:1px solid var(--blue-border); }
+    .btn-outline:hover { background:var(--blue-glow); border-color:var(--blue); }
+    .hero-mouse { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; color:var(--gray); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+    .mouse-icon { width:20px; height:34px; border:1.5px solid rgba(30,144,255,.4); border-radius:10px; display:flex; justify-content:center; padding-top:5px; }
+    .mouse-wheel { width:2px; height:7px; background:var(--blue); border-radius:2px; animation:wheel 1.6s ease-in-out infinite; }
+    @keyframes wheel { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(8px);opacity:0} }
+
+    /* ===== SECTIONS ===== */
+    section { padding:6.5rem 2rem; }
+    .container { max-width:var(--max); margin:0 auto; }
+    .s-label { font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin-bottom:.6rem; }
+    .s-title { font-family:var(--serif); font-size:clamp(1.9rem,3.5vw,2.9rem); font-weight:700; color:var(--white); line-height:1.15; margin-bottom:.9rem; }
+    .s-desc { font-size:1.0125rem; color:var(--gray); line-height:1.85; max-width:560px; }
+    .rule { width:2.5rem; height:2px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); margin-bottom:1.75rem; }
+    .rule-center { margin-left:auto; margin-right:auto; }
+    .section-head { text-align:center; margin-bottom:4rem; }
+    .section-head .s-desc { margin:0 auto; }
+    .section-head .rule { margin:.9rem auto 1.5rem; }
+
+    /* ===== ABOUT ===== */
+    #sobre { position:relative; }
+    #sobre::before { content:''; position:absolute; top:0; right:0; width:600px; height:600px; background:radial-gradient(ellipse at top right,rgba(30,144,255,.06) 0%,transparent 60%); pointer-events:none; }
+    .about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:6rem; align-items:center; }
+    .about-text p { color:var(--gray); line-height:1.9; margin-bottom:1rem; font-size:1rem; }
+    .about-text p:last-of-type { margin-bottom:0; }
+    .ai-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(30,144,255,.08); border:1px solid var(--blue-border); border-radius:6px; padding:.55rem 1rem; margin-top:1.75rem; font-size:.825rem; color:var(--blue); font-weight:500; }
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .stat-card { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:14px; padding:1.75rem 1.5rem; position:relative; overflow:hidden; transition:border-color .3s,transform .3s; }
+    .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); opacity:0; transition:opacity .3s; }
+    .stat-card:hover { border-color:var(--blue); transform:translateY(-3px); }
+    .stat-card:hover::before { opacity:1; }
+    .stat-num { font-family:var(--serif); font-size:2.8rem; font-weight:700; background:linear-gradient(135deg,var(--blue),var(--blue-neon)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; margin-bottom:.4rem; }
+    .stat-lbl { font-size:.825rem; color:var(--gray); font-weight:500; }
+
+    /* ===== SERVICES ===== */
+    #servicios { background:linear-gradient(180deg,var(--bg) 0%,#09152a 100%); }
+    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); column-gap:1.4rem; row-gap:3.5rem; }
+    .svc-card { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:0; position:relative; overflow:hidden; transition:border-color .3s,transform .3s,box-shadow .3s; }
+    .svc-card::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top left,rgba(30,144,255,.07) 0%,transparent 55%); opacity:0; transition:opacity .3s; }
+    .svc-card:hover { border-color:var(--blue); transform:translateY(-6px); box-shadow:0 18px 55px rgba(30,144,255,.11); }
+    .svc-card:hover::after { opacity:1; }
+    .svc-img { width:100%; margin:0; aspect-ratio:1/1; overflow:hidden; }
+    .svc-text { padding:2rem; }
+    .svc-img img { width:100%; height:100%; object-fit:cover; transition:transform .55s cubic-bezier(.25,.46,.45,.94); display:block; }
+    .svc-card:hover .svc-img img { transform:scale(1.06); }
+    .svc-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .svc-num {
+      font-family: var(--serif);
+      font-size: 2.25rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--blue), var(--blue-neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .svc-emoji {
+      font-size: 1.35rem;
+      line-height: 1;
+      filter: grayscale(15%);
+      opacity: .9;
+    }
+    .svc-title { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:var(--white); margin-bottom:.65rem; position:relative; z-index:1; }
+    .svc-desc { font-size:.855rem; color:var(--gray); line-height:1.75; margin-bottom:1.25rem; position:relative; z-index:1; }
+    .svc-list { list-style:none; position:relative; z-index:1; }
+    .svc-list li { font-size:.8rem; color:var(--gray); padding:.28rem 0 .28rem 1.2rem; position:relative; }
+    .svc-list li::before { content:'✦'; position:absolute; left:0; color:var(--blue); font-size:.58rem; top:.42rem; }
+    .svc-wide { grid-column:1/-1; display:grid; grid-template-columns:auto 1fr auto; align-items:start; gap:2rem; }
+    .svc-wide .svc-header { margin-bottom:0; }
+    .svc-wide .svc-num { font-size:2.75rem; }
+    .svc-wide .svc-emoji { font-size:1.6rem; }
+    .svc-wide .svc-desc { margin-bottom:0; }
+    .svc-wide-features .svc-list { columns:2; column-gap:2rem; }
+
+    /* ===== PACKAGES ===== */
+    #paquetes { position:relative; }
+    #paquetes::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 80%,rgba(30,144,255,.05) 0%,transparent 65%); pointer-events:none; }
+
+    /* Launch banner */
+    .launch-banner {
+      background: linear-gradient(135deg, rgba(30,144,255,.12), rgba(0,143,255,.06));
+      border: 1px solid rgba(30,144,255,.35);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .launch-banner-text { display:flex; align-items:center; gap:.75rem; }
+    .launch-fire { font-size:1.25rem; }
+    .launch-title { font-weight:700; color:var(--white); font-size:.95rem; }
+    .launch-sub { font-size:.78rem; color:var(--gray); margin-top:.1rem; }
+    .countdown { display:flex; align-items:center; gap:.5rem; }
+    .cd-block { display:flex; flex-direction:column; align-items:center; background:rgba(30,144,255,.1); border:1px solid var(--blue-border); border-radius:8px; padding:.5rem .75rem; min-width:52px; }
+    .cd-block span { font-family:var(--serif); font-size:1.4rem; font-weight:700; color:var(--blue); line-height:1; }
+    .cd-block small { font-size:.6rem; color:var(--gray); letter-spacing:.08em; text-transform:uppercase; margin-top:.15rem; }
+    .cd-sep { font-size:1.2rem; color:var(--blue); font-weight:700; margin-bottom:.3rem; }
+
+    .packages-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; margin-bottom:1.4rem; }
+    .pkg-card { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:2.25rem; position:relative; overflow:hidden; transition:transform .3s,box-shadow .3s,border-color .3s; }
+    .pkg-card:hover { transform:translateY(-4px); box-shadow:0 18px 55px rgba(30,144,255,.11); }
+    .pkg-card.hot { border-color:var(--blue); background:linear-gradient(145deg,#132136,#0d1e38); }
+    .pkg-card.hot::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); }
+    .pkg-card.hot:hover { box-shadow:0 18px 55px rgba(30,144,255,.22); }
+
+    .pkg-badge { display:inline-flex; align-items:center; background:rgba(30,144,255,.1); border:1px solid rgba(30,144,255,.25); color:var(--blue); font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.22rem .7rem; border-radius:100px; margin-bottom:.9rem; }
+    .pkg-card.hot .pkg-badge { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .pkg-name { font-family:var(--serif); font-size:1.55rem; font-weight:700; color:var(--white); margin-bottom:.2rem; }
+    .pkg-target { font-size:.8rem; color:var(--gray); font-style:italic; margin-bottom:1rem; }
+
+    /* Discount price display */
+    .pkg-price-wrap { margin-bottom:.3rem; }
+    .pkg-price-current { font-family:var(--serif); font-size:1.65rem; font-weight:700; color:var(--blue); }
+    .pkg-price-original { font-size:.95rem; color:var(--gray); text-decoration:line-through; margin-left:.6rem; opacity:.7; }
+    .pkg-discount-badge { display:inline-flex; align-items:center; gap:.3rem; background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.3); color:#f87171; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:.18rem .6rem; border-radius:100px; margin-bottom:.3rem; }
+    .pkg-period { font-size:.78rem; color:var(--gray); margin-bottom:1.4rem; }
+    .pkg-divider { height:1px; background:var(--blue-border); margin:1.2rem 0; }
+    .pkg-list { list-style:none; }
+    .pkg-list li { font-size:.845rem; color:var(--gray); padding:.38rem 0 .38rem 1.4rem; position:relative; }
+    .pkg-list li::before { content:'✦'; position:absolute; left:0; color:var(--blue); font-size:.58rem; top:.52rem; }
+
+    /* Special package */
+    .pkg-special { grid-column:1/-1; border-color:rgba(30,144,255,.38); background:linear-gradient(135deg,#0f1d31,#0c1827); margin-bottom:1.4rem; }
+    .pkg-special::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); }
+    .pkg-special-inner { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem; }
+    .pkg-special .pkg-list { display:grid; grid-template-columns:repeat(2,1fr); gap:0 3rem; }
+
+    /* À la carte */
+    .alacarte { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:2.5rem; }
+    .alacarte h3 { font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:.35rem; }
+    .alacarte-sub { font-size:.875rem; color:var(--gray); margin-bottom:.75rem; }
+    .alacarte-discount-note { display:inline-flex; align-items:center; gap:.4rem; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.28); color:#f87171; font-size:.75rem; font-weight:700; padding:.28rem .85rem; border-radius:100px; margin-bottom:1.5rem; letter-spacing:.06em; }
+    .alacarte-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; margin-bottom:2rem; }
+    .ac-item { background:rgba(30,144,255,.04); border:1px solid var(--blue-border); border-radius:10px; padding:1.1rem 1.2rem; transition:border-color .25s,background .25s; position:relative; overflow:hidden; }
+    .ac-item:hover { border-color:var(--blue); background:rgba(30,144,255,.07); }
+    .ac-name { font-size:.865rem; color:var(--white); font-weight:500; margin-bottom:.5rem; }
+    .ac-price-wrap { display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap; }
+    .ac-price-current { font-size:.875rem; color:var(--blue); font-weight:700; }
+    .ac-price-original { font-size:.75rem; color:var(--gray); text-decoration:line-through; opacity:.7; }
+    .ac-save-badge { font-size:.6rem; font-weight:700; color:#f87171; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); border-radius:4px; padding:.1rem .35rem; letter-spacing:.05em; }
+
+    .pay-conditions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .pay-item { flex:1; min-width:200px; background:rgba(30,144,255,.05); border:1px solid var(--blue-border); border-radius:10px; padding:1.1rem 1.25rem; }
+    .pay-type { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:.3rem; }
+    .pay-desc { font-size:.855rem; color:var(--gray); }
+
+    /* ===== GALLERY ===== */
+    #galeria { background:linear-gradient(180deg,#09152a 0%,var(--bg) 100%); }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+    .gal-item { position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1; border:1px solid var(--blue-border); transition:border-color .3s; }
+    .gal-item:hover { border-color:var(--blue); }
+    .gal-item img { width:100%; height:100%; object-fit:cover; transition:transform .55s cubic-bezier(.16,1,.3,1); display:block; }
+    .gal-item:hover img { transform:scale(1.07); }
+    .gal-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(13,26,47,.88) 0%,transparent 55%); opacity:0; transition:opacity .3s; display:flex; align-items:flex-end; padding:1.5rem; }
+    .gal-item:hover .gal-overlay { opacity:1; }
+    .gal-caption { font-size:.855rem; color:var(--white); font-weight:500; }
+
+    /* ===== CONTACT ===== */
+    #contacto { position:relative; overflow:hidden; }
+    #contacto::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,rgba(30,144,255,.06) 0%,transparent 68%); pointer-events:none; }
+    .contact-grid { display:grid; grid-template-columns:1fr 1.45fr; gap:6rem; align-items:start; }
+    .contact-title { font-family:var(--serif); font-size:clamp(1.7rem,3vw,2.6rem); font-weight:700; color:var(--white); line-height:1.2; margin-bottom:.9rem; }
+    .contact-sub { color:var(--gray); line-height:1.85; margin-bottom:2rem; font-size:1rem; }
+    .methods { display:flex; flex-direction:column; gap:.9rem; }
+    .method { display:flex; align-items:center; gap:1rem; padding:.95rem 1.2rem; background:var(--bg-card); border:1px solid var(--blue-border); border-radius:10px; text-decoration:none; transition:border-color .25s,background .25s; }
+    .method:hover { border-color:var(--blue); background:var(--bg-card-alt); }
+    .method-ico { width:40px; height:40px; background:rgba(30,144,255,.09); border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--blue); }
+    .method-ico svg { width:18px; height:18px; }
+    .method-lbl { font-size:.7rem; color:var(--gray); font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+    .method-val { font-size:.9rem; color:var(--white); font-weight:500; }
+    .form-box { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:2.5rem; }
+    .form-box h3 { font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:.4rem; }
+    .form-box p { font-size:.875rem; color:var(--gray); margin-bottom:2rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .fg { margin-bottom:1.2rem; }
+    .fg label { display:block; font-size:.75rem; font-weight:600; color:var(--gray); margin-bottom:.45rem; text-transform:uppercase; letter-spacing:.07em; }
+    .fg input,.fg select,.fg textarea { width:100%; background:rgba(30,144,255,.04); border:1px solid var(--blue-border); border-radius:8px; color:var(--white); font-family:var(--sans); font-size:.925rem; padding:.75rem 1rem; outline:none; transition:border-color .25s,background .25s; }
+    .fg input:focus,.fg select:focus,.fg textarea:focus { border-color:var(--blue); background:rgba(30,144,255,.06); }
+    .fg textarea { resize:vertical; min-height:115px; }
+    .fg select option { background:var(--bg-card); color:var(--white); }
+    .form-btn { width:100%; background:linear-gradient(135deg,var(--blue),var(--blue-neon)); color:#fff; border:none; border-radius:8px; padding:.9rem 2rem; font-family:var(--sans); font-size:.9rem; font-weight:600; letter-spacing:.05em; cursor:pointer; transition:transform .2s,box-shadow .2s; margin-top:.4rem; }
+    .form-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(30,144,255,.35); }
+
+    /* ===== FOOTER ===== */
+    footer { border-top:1px solid var(--blue-border); padding:3rem 2.5rem; background:var(--bg-deep); }
+    .foot-inner { max-width:var(--max); margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
+    .foot-brand { display:flex; align-items:center; gap:.75rem; }
+    .foot-brand img { height:36px; }
+    .foot-name { font-size:.875rem; font-weight:600; color:var(--white); }
+    .foot-sub { font-size:.78rem; color:var(--gray); }
+    .foot-links { display:flex; gap:2rem; list-style:none; }
+    .foot-links a { font-size:.8rem; color:var(--gray); text-decoration:none; transition:color .25s; }
+    .foot-links a:hover { color:var(--blue); }
+    .foot-socials { display:flex; gap:.65rem; }
+    .s-ico { width:36px; height:36px; border:1px solid var(--blue-border); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--gray); text-decoration:none; transition:border-color .25s,color .25s,background .25s; }
+    .s-ico:hover { border-color:var(--blue); color:var(--blue); background:rgba(30,144,255,.07); }
+    .foot-copy { width:100%; text-align:center; font-size:.72rem; color:var(--gray); padding-top:1.5rem; border-top:1px solid var(--blue-border); margin-top:1.5rem; opacity:.65; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:1024px) {
+      .services-grid { grid-template-columns:repeat(2,1fr); }
+      .svc-wide { grid-column:span 1; grid-template-columns:auto 1fr; }
+      .svc-wide .svc-wide-features { grid-column:1/-1; }
+      .svc-wide-features .svc-list { columns:1; }
+      .packages-grid { grid-template-columns:repeat(2,1fr); }
+      .alacarte-grid { grid-template-columns:repeat(2,1fr); }
+      .about-grid { gap:3.5rem; }
+      .launch-banner { flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width:768px) {
+      nav { padding:.875rem 1.25rem; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      section { padding:4rem 1.25rem; }
+      .about-grid { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:1fr 1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .svc-wide { grid-column:span 1; grid-template-columns:auto 1fr; }
+      .packages-grid { grid-template-columns:1fr; }
+      .pkg-special .pkg-list { grid-template-columns:1fr; }
+      .alacarte-grid { grid-template-columns:1fr 1fr; }
+      .gallery-grid { grid-template-columns:1fr 1fr; gap:1rem; }
+      .gallery-grid .gal-item:last-child { grid-column:span 2; }
+      .contact-grid { grid-template-columns:1fr; gap:3rem; }
+      .form-row { grid-template-columns:1fr; }
+      .foot-inner { flex-direction:column; align-items:center; text-align:center; }
+      .foot-links { display:none; }
+      .countdown { flex-wrap:wrap; justify-content:center; }
+    }
+    @media (max-width:480px) {
+      .hero-actions { flex-direction:column; align-items:center; }
+      .stats-grid { grid-template-columns:1fr; }
+      .alacarte-grid { grid-template-columns:1fr; }
+      .gallery-grid { grid-template-columns:1fr; }
+      .gallery-grid .gal-item:last-child { grid-column:span 1; }
+      .pay-conditions { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav id="nav">
+    <a class="nav-logo" href="#inicio">
+      <img src="assets/LOGO CARVA 2.0.png" alt="CARVA Studio Digital">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#paquetes">Paquetes</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
+    </ul>
+    <div class="hamburger" id="hbg" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio">
+    <div class="hero-grid" id="heroGrid"></div>
+    <div class="hero-radial"></div>
+    <div class="hero-radial-2"></div>
+    <div class="hero-inner">
+      <div class="hero-pill">
+        Identidad<span class="sep">·</span>Estrategia<span class="sep">·</span>Crecimiento
+      </div>
+      <div class="hero-logo-img">
+        <img src="assets/LOGO CARVA 2.0.png" alt="CARVA Studio Digital">
+      </div>
+      <p class="hero-tagline">Digital · Branding · IA</p>
+      <p class="hero-desc">Integramos branding estratégico, diseño digital e inteligencia artificial para desarrollar marcas escalables, competitivas y orientadas a resultados.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-primary">
+          Empieza tu proyecto
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+      </div>
+    </div>
+    <div class="hero-mouse">
+      <div class="mouse-icon"><div class="mouse-wheel"></div></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE NOSOTROS ===== -->
+  <section id="sobre">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="s-label reveal">Quiénes somos</p>
+          <h2 class="s-title reveal">Tu marca merece más que improvisación</h2>
+          <div class="rule reveal"></div>
+          <p class="reveal">En CARVA Studio ayudamos a emprendimientos y empresas a construir una identidad de marca sólida, moderna y estratégica a través del poder de la inteligencia artificial.</p>
+          <p class="reveal d1">Creamos contenido digital, branding, publicidad, diseño para redes sociales y páginas web de forma innovadora y sistematizada, usando herramientas de IA que producen resultados de alta calidad sin depender de grandes equipos de producción tradicional.</p>
+          <p class="reveal d2">A partir de fotografías de productos, desarrollamos contenido creativo y publicitario pensado para posicionar marcas y hacerlas destacar en el mundo digital. Nuestro objetivo: que cada negocio tenga una presencia digital profesional, estética y coherente.</p>
+          <div class="ai-badge reveal d3">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            Potenciado por Inteligencia Artificial
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card reveal-s d1">
+            <div class="stat-num" data-target="100" data-suffix="%">0</div>
+            <div class="stat-lbl">Enfocados en IA</div>
+          </div>
+          <div class="stat-card reveal-s d2">
+            <div class="stat-num" data-target="9">0</div>
+            <div class="stat-lbl">Servicios especializados</div>
+          </div>
+          <div class="stat-card reveal-s d3">
+            <div class="stat-num" data-target="5">0</div>
+            <div class="stat-lbl">Paquetes adaptados</div>
+          </div>
+          <div class="stat-card reveal-s d4">
+            <div class="stat-num" style="-webkit-text-fill-color:unset;background:none;color:var(--blue);">∞</div>
+            <div class="stat-lbl">Posibilidades de marca</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICIOS ===== -->
+  <section id="servicios">
+    <div class="container">
+      <div class="section-head">
+        <p class="s-label reveal">Lo que hacemos</p>
+        <h2 class="s-title reveal">Servicios que transforman marcas</h2>
+        <div class="rule rule-center reveal"></div>
+        <p class="s-desc reveal">Cada servicio está diseñado para que tu negocio tenga una presencia digital profesional, estética y coherente que atrae clientes y genera ventas.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="svc-card reveal d1"><div class="svc-img"><img src="assets/01.png" alt="Branding con IA"></div></div>
+        <div class="svc-card reveal d2"><div class="svc-img"><img src="assets/02.png" alt="Diseño para Redes Sociales"></div></div>
+        <div class="svc-card reveal d3"><div class="svc-img"><img src="assets/03.png" alt="Contenido Publicitario con IA"></div></div>
+        <div class="svc-card reveal d4"><div class="svc-img"><img src="assets/04.png" alt="Gestión de Redes Sociales"></div></div>
+        <div class="svc-card reveal d5"><div class="svc-img"><img src="assets/05.png" alt="Páginas Web"></div></div>
+        <div class="svc-card reveal d6"><div class="svc-img"><img src="assets/06.png" alt="Estrategia Digital"></div></div>
+        <div class="svc-card reveal d7"><div class="svc-img"><img src="assets/gpt07.png" alt="Lanzamiento de Marca"></div></div>
+        <div class="svc-card reveal d8"><div class="svc-img"><img src="assets/gpt08.png" alt="Auditoría Digital"></div></div>
+        <div class="svc-card reveal d9"><div class="svc-img"><img src="assets/gpt09.png" alt="Automatización de Procesos"></div></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAQUETES ===== -->
+  <section id="paquetes">
+    <div class="container">
+      <div class="section-head">
+        <p class="s-label reveal">Inversión</p>
+        <h2 class="s-title reveal">Un paquete para cada etapa</h2>
+        <div class="rule rule-center reveal"></div>
+        <p class="s-desc reveal">Desde el primer logo hasta la presencia digital completa. Todos los precios en pesos colombianos (COP).</p>
+      </div>
+
+      <!-- Countdown banner -->
+      <div class="launch-banner reveal">
+        <div class="launch-banner-text">
+          <div class="launch-fire">🔥</div>
+          <div>
+            <div class="launch-title">Precios de Lanzamiento — Solo durante el primer mes</div>
+            <div class="launch-sub">Oferta válida por tiempo limitado · Precios regulares una vez venza el contador</div>
+          </div>
+        </div>
+        <div class="countdown">
+          <div class="cd-block"><span id="cd-d">00</span><small>Días</small></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-h">00</span><small>Horas</small></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-m">00</span><small>Min</small></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-s">00</span><small>Seg</small></div>
+        </div>
+      </div>
+
+      <div class="packages-grid">
+
+        <!-- STARTER -->
+        <div class="pkg-card reveal d1">
+          <div class="pkg-badge">01 · Starter</div>
+          <div class="pkg-name">Identidad Visual</div>
+          <div class="pkg-target">Para negocios nuevos que necesitan existir visualmente</div>
+          <div class="pkg-discount-badge">🔥 ~28% OFF · Lanzamiento</div>
+          <div class="pkg-price-wrap">
+            <span class="pkg-price-current">$650.000</span>
+            <span class="pkg-price-original">$900.000</span>
+          </div>
+          <div class="pkg-period">Pago único</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-list">
+            <li>Logo + variaciones (3 versiones)</li>
+            <li>Paleta de colores y tipografías</li>
+            <li>Manual de marca básico</li>
+            <li>Kit de redes sociales (portada, highlights, plantilla)</li>
+            <li>1 ronda de ajustes incluida</li>
+          </ul>
+        </div>
+
+        <!-- PRESENCIA -->
+        <div class="pkg-card reveal d2">
+          <div class="pkg-badge">02 · Presencia</div>
+          <div class="pkg-name">Gestión Mensual de Redes</div>
+          <div class="pkg-target">Ya tienes marca y quieres activar tus redes sociales</div>
+          <div class="pkg-discount-badge">🔥 33% OFF · Lanzamiento</div>
+          <div class="pkg-price-wrap">
+            <span class="pkg-price-current">$800.000</span>
+            <span class="pkg-price-original">$1.200.000</span>
+          </div>
+          <div class="pkg-period">Por mes</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-list">
+            <li>Estrategia y calendario mensual</li>
+            <li>12 piezas diseñadas (posts + stories con copy)</li>
+            <li>Community management</li>
+            <li>Reporte mensual de métricas</li>
+          </ul>
+        </div>
+
+        <!-- IMPULSO -->
+        <div class="pkg-card hot reveal d3">
+          <div class="pkg-badge">⭐ Más popular · Impulso</div>
+          <div class="pkg-name">Marca + Redes + Contenido IA</div>
+          <div class="pkg-target">Emprendedores que quieren arrancar en serio desde cero</div>
+          <div class="pkg-discount-badge">🔥 32% OFF · Lanzamiento</div>
+          <div class="pkg-price-wrap">
+            <span class="pkg-price-current">$1.500.000</span>
+            <span class="pkg-price-original">$2.200.000</span>
+          </div>
+          <div class="pkg-period">Por mes</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-list">
+            <li>Branding completo (logo, manual, paleta)</li>
+            <li>Kit de redes listo (plantillas + highlights)</li>
+            <li>16 piezas mensuales con IA</li>
+            <li>Contenido publicitario IA (hasta 4 piezas/mes)</li>
+            <li>Community management activo</li>
+          </ul>
+        </div>
+
+        <!-- PRO -->
+        <div class="pkg-card reveal d4">
+          <div class="pkg-badge">04 · Pro</div>
+          <div class="pkg-name">Presencia Digital Completa</div>
+          <div class="pkg-target">Negocios listos para escalar su presencia digital</div>
+          <div class="pkg-discount-badge">🔥 30% OFF · Lanzamiento</div>
+          <div class="pkg-price-wrap">
+            <span class="pkg-price-current">$3.500.000</span>
+            <span class="pkg-price-original">$5.000.000</span>
+          </div>
+          <div class="pkg-period">Web única + desde $1.500.000/mes</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-list">
+            <li>Todo el paquete Impulso</li>
+            <li>Página web profesional (5 secciones + SEO)</li>
+            <li>2 piezas para pauta (Facebook / Instagram Ads)</li>
+            <li>Estrategia digital completa</li>
+            <li>Reporte mensual detallado</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Lanzamiento especial -->
+      <div class="pkg-card pkg-special reveal">
+        <div class="pkg-special-inner">
+          <div>
+            <div class="pkg-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-neon));color:#fff;border:none;">✦ Paquete Especial</div>
+            <div class="pkg-name">Lanzamiento de Marca</div>
+            <div class="pkg-target">Todo lo que necesitas para despegar con el pie derecho</div>
+            <div class="pkg-discount-badge">🔥 ~29% OFF · Lanzamiento</div>
+          </div>
+          <div style="text-align:right">
+            <div class="pkg-price-wrap" style="justify-content:flex-end">
+              <span class="pkg-price-current" style="font-size:1.75rem;">$2.500.000</span>
+              <span class="pkg-price-original" style="font-size:1rem;">$3.500.000</span>
+            </div>
+            <div class="pkg-period">Pago único</div>
+          </div>
+        </div>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-list">
+          <li>Branding completo</li>
+          <li>Kit de redes listo para publicar</li>
+          <li>Estrategia de contenido del primer mes</li>
+          <li>Primeros 12 posts diseñados con copy</li>
+        </ul>
+      </div>
+
+      <!-- À la carte -->
+      <div class="alacarte reveal">
+        <h3>Servicios Individuales — À la Carte</h3>
+        <p class="alacarte-sub">¿Solo necesitas algo puntual? También podemos ayudarte.</p>
+        <div class="alacarte-discount-note">
+          🔥 40% de descuento por lanzamiento — válido por tiempo limitado
+        </div>
+        <div class="alacarte-grid">
+          <div class="ac-item">
+            <div class="ac-name">Logo únicamente</div>
+            <div class="ac-price-wrap">
+              <span class="ac-price-current">$300.000</span>
+              <span class="ac-price-original">$500.000</span>
+              <span class="ac-save-badge">-40%</span>
+            </div>
+          </div>
+          <div class="ac-item">
+            <div class="ac-name">Página web sencilla</div>
+            <div class="ac-price-wrap">
+              <span class="ac-price-current">$1.800.000</span>
+              <span class="ac-price-original">$3.000.000</span>
+              <span class="ac-save-badge">-40%</span>
+            </div>
+          </div>
+          <div class="ac-item">
+            <div class="ac-name">Auditoría de perfil de Instagram</div>
+            <div class="ac-price-wrap">
+              <span class="ac-price-current">$150.000</span>
+              <span class="ac-price-original">$250.000</span>
+              <span class="ac-save-badge">-40%</span>
+            </div>
+          </div>
+          <div class="ac-item">
+            <div class="ac-name">Pack de 10 piezas diseñadas</div>
+            <div class="ac-price-wrap">
+              <span class="ac-price-current">$400.000</span>
+              <span class="ac-price-original">$600.000</span>
+              <span class="ac-save-badge">-40%</span>
+            </div>
+          </div>
+          <div class="ac-item">
+            <div class="ac-name">Contenido IA de producto (5 imágenes)</div>
+            <div class="ac-price-wrap">
+              <span class="ac-price-current">$300.000</span>
+              <span class="ac-price-original">$450.000</span>
+              <span class="ac-save-badge">-40%</span>
+            </div>
+          </div>
+        </div>
+        <div class="pay-conditions">
+          <div class="pay-item">
+            <div class="pay-type">Paquetes únicos</div>
+            <div class="pay-desc">50% anticipo — 50% al entregar el proyecto</div>
+          </div>
+          <div class="pay-item">
+            <div class="pay-type">Paquetes mensuales</div>
+            <div class="pay-desc">Pago completo los primeros 5 días del mes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALERÍA ===== -->
+  <section id="galeria">
+    <div class="container">
+      <div class="section-head">
+        <p class="s-label reveal">Estilo de contenido</p>
+        <h2 class="s-title reveal">Así se ve una marca CARVA</h2>
+        <div class="rule rule-center reveal"></div>
+        <p class="s-desc reveal">Muestra del tipo de contenido visual que producimos para nuestros clientes.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gal-item reveal d1">
+          <img src="assets/img 1.png" alt="Estrategia, Creatividad y Resultados — CARVA Studio">
+          <div class="gal-overlay"><div class="gal-caption">Estrategia · Creatividad · Resultados</div></div>
+        </div>
+        <div class="gal-item reveal d2">
+          <img src="assets/img 2.png" alt="Estrategia no suerte — CARVA Studio">
+          <div class="gal-overlay"><div class="gal-caption">Estrategia, no suerte</div></div>
+        </div>
+        <div class="gal-item reveal d3">
+          <img src="assets/img 3.png" alt="Tu mejor inversión — CARVA Studio">
+          <div class="gal-overlay"><div class="gal-caption">Tu mejor inversión eres tú y tu marca</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO ===== -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <p class="s-label reveal">Contacto</p>
+          <h2 class="contact-title reveal">¿Listo para hacer crecer tu marca?</h2>
+          <div class="rule reveal"></div>
+          <p class="contact-sub reveal">Escríbenos y recibe una asesoría sin costo. Cuéntanos sobre tu negocio y te mostramos cómo podemos transformar tu presencia digital.</p>
+          <div class="methods">
+            <a href="https://wa.me/573142814299?text=Hola%20CARVA%20Studio%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20sus%20servicios" class="method reveal d1" target="_blank" rel="noopener">
+              <div class="method-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              </div>
+              <div>
+                <div class="method-lbl">WhatsApp</div>
+                <div class="method-val">+57 314 281 4299</div>
+              </div>
+            </a>
+            <a href="mailto:carvastudiodigital@gmail.com" class="method reveal d2">
+              <div class="method-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="method-lbl">Email</div>
+                <div class="method-val">carvastudiodigital@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://instagram.com/carvastudiodigital" class="method reveal d3" target="_blank" rel="noopener">
+              <div class="method-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor" stroke="none"/></svg>
+              </div>
+              <div>
+                <div class="method-lbl">Instagram</div>
+                <div class="method-val">@carvastudiodigital</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="form-box reveal">
+          <h3>Cuéntanos de tu proyecto</h3>
+          <p>Asesoría inicial sin costo — te respondemos en menos de 24 horas.</p>
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre" required></div>
+              <div class="fg"><label>Negocio</label><input type="text" placeholder="Tu empresa o marca"></div>
+            </div>
+            <div class="fg"><label>Email o WhatsApp</label><input type="text" placeholder="¿Cómo te contactamos?" required></div>
+            <div class="fg">
+              <label>¿Qué necesitas?</label>
+              <select>
+                <option value="">Selecciona un servicio...</option>
+                <option>Branding con IA</option>
+                <option>Diseño para Redes Sociales</option>
+                <option>Contenido Publicitario con IA</option>
+                <option>Gestión de Redes Sociales</option>
+                <option>Página Web</option>
+                <option>Estrategia Digital</option>
+                <option>Lanzamiento de Marca</option>
+                <option>Auditoría Digital</option>
+                <option>Automatización de Procesos</option>
+                <option>No sé aún — necesito asesoría</option>
+              </select>
+            </div>
+            <div class="fg"><label>Cuéntanos más</label><textarea placeholder="¿En qué etapa está tu negocio? ¿Qué quieres lograr?"></textarea></div>
+            <button type="submit" class="form-btn" id="submitBtn">Enviar mensaje →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <img src="assets/LOGO CARVA.png" alt="CARVA Studio">
+        <div>
+          <div class="foot-name">CARVA Studio Digital</div>
+          <div class="foot-sub">Identidad · Estrategia · Inteligencia Artificial</div>
+        </div>
+      </div>
+      <ul class="foot-links">
+        <li><a href="#sobre">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#paquetes">Paquetes</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="foot-socials">
+        <a href="https://instagram.com/carvastudiodigital" class="s-ico" target="_blank" rel="noopener" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/573142814299" class="s-ico" target="_blank" rel="noopener" title="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </a>
+        <a href="mailto:carvastudiodigital@gmail.com" class="s-ico" title="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+      <div class="foot-copy">© 2025 CARVA Studio Digital · @carvastudiodigital · Todos los derechos reservados</div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== NAV =====
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 50), {passive:true});
+    function toggleNav() { document.body.classList.toggle('nav-open'); }
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+    // ===== PARTICLES =====
+    const heroEl = document.querySelector('.hero');
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const sz = 2 + Math.random() * 3;
+      p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${80+Math.random()*20}%;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*10}s;opacity:${.25+Math.random()*.4};`;
+      heroEl.appendChild(p);
+    }
+
+    // ===== PARALLAX =====
+    addEventListener('scroll', () => {
+      const g = document.getElementById('heroGrid');
+      if (g) g.style.transform = `translateY(${scrollY * .28}px)`;
+    }, {passive:true});
+
+    // ===== INTERSECTION OBSERVER =====
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.1, rootMargin:'0px 0px -35px 0px'});
+    document.querySelectorAll('.reveal, .reveal-s').forEach(el => io.observe(el));
+
+    // ===== COUNTERS =====
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !e.target.dataset.done) {
+          e.target.dataset.done = '1';
+          const target = +e.target.dataset.target;
+          const suffix = e.target.dataset.suffix || '';
+          if (!target) return;
+          const dur = 1800, t0 = performance.now();
+          const tick = now => {
+            const p = Math.min((now - t0) / dur, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            e.target.textContent = Math.floor(ease * target) + suffix;
+            if (p < 1) requestAnimationFrame(tick); else e.target.textContent = target + suffix;
+          };
+          requestAnimationFrame(tick);
+          cio.unobserve(e.target);
+        }
+      });
+    }, {threshold:.6});
+    document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
+
+    // ===== COUNTDOWN — vence 2026-06-14 =====
+    const deadline = new Date('2026-06-14T23:59:59').getTime();
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = deadline - now;
+      if (diff <= 0) {
+        document.getElementById('cd-d').textContent = '00';
+        document.getElementById('cd-h').textContent = '00';
+        document.getElementById('cd-m').textContent = '00';
+        document.getElementById('cd-s').textContent = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ===== FORM — Formspree =====
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://formspree.io/f/mlgzqppp', {
+          method: 'POST', body: new FormData(this),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          btn.textContent = '✓ Enviado — te contactamos pronto';
+          btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+          setTimeout(() => { btn.textContent = 'Enviar mensaje →'; btn.style.background = ''; btn.disabled = false; this.reset(); }, 3500);
+        } else {
+          btn.textContent = 'Error al enviar — intenta de nuevo';
+          btn.disabled = false;
+        }
+      } catch(err) {
+        btn.textContent = 'Error de conexión';
+        btn.disabled = false;
+      }
+    });
+
+    // ===== LIGHTBOX =====
+    (function() {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      document.querySelectorAll('.svc-img img').forEach(img => {
+        img.addEventListener('click', function() {
+          lbImg.src = this.src;
+          lbImg.alt = this.alt;
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      document.getElementById('lightbox-close').addEventListener('click', closeLb);
+      lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+      function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    })();
+  </script>
+
+  <div id="lightbox">
+    <span id="lightbox-close">&#x2715;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+</body>
+</html>
