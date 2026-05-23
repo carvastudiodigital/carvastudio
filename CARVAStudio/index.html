@@ -488,9 +488,9 @@
           <div class="pkg-badge">01 · Starter</div>
           <div class="pkg-name">Identidad Visual</div>
           <div class="pkg-target">Para negocios nuevos que necesitan existir visualmente</div>
-          <div class="pkg-discount-badge">🔥 ~28% OFF · Lanzamiento</div>
+          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
           <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$650.000</span>
+            <span class="pkg-price-current">$540.000</span>
             <span class="pkg-price-original">$900.000</span>
           </div>
           <div class="pkg-period">Pago único</div>
@@ -509,9 +509,9 @@
           <div class="pkg-badge">02 · Presencia</div>
           <div class="pkg-name">Gestión Mensual de Redes</div>
           <div class="pkg-target">Ya tienes marca y quieres activar tus redes sociales</div>
-          <div class="pkg-discount-badge">🔥 33% OFF · Lanzamiento</div>
+          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
           <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$800.000</span>
+            <span class="pkg-price-current">$720.000</span>
             <span class="pkg-price-original">$1.200.000</span>
           </div>
           <div class="pkg-period">Por mes</div>
@@ -529,9 +529,9 @@
           <div class="pkg-badge">⭐ Más popular · Impulso</div>
           <div class="pkg-name">Marca + Redes + Contenido IA</div>
           <div class="pkg-target">Emprendedores que quieren arrancar en serio desde cero</div>
-          <div class="pkg-discount-badge">🔥 32% OFF · Lanzamiento</div>
+          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
           <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$1.500.000</span>
+            <span class="pkg-price-current">$1.320.000</span>
             <span class="pkg-price-original">$2.200.000</span>
           </div>
           <div class="pkg-period">Por mes</div>
@@ -550,9 +550,9 @@
           <div class="pkg-badge">04 · Pro</div>
           <div class="pkg-name">Presencia Digital Completa</div>
           <div class="pkg-target">Negocios listos para escalar su presencia digital</div>
-          <div class="pkg-discount-badge">🔥 30% OFF · Lanzamiento</div>
+          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
           <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$3.500.000</span>
+            <span class="pkg-price-current">$3.000.000</span>
             <span class="pkg-price-original">$5.000.000</span>
           </div>
           <div class="pkg-period">Web única + desde $1.500.000/mes</div>
@@ -575,11 +575,11 @@
             <div class="pkg-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-neon));color:#fff;border:none;">✦ Paquete Especial</div>
             <div class="pkg-name">Lanzamiento de Marca</div>
             <div class="pkg-target">Todo lo que necesitas para despegar con el pie derecho</div>
-            <div class="pkg-discount-badge">🔥 ~29% OFF · Lanzamiento</div>
+            <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
           </div>
           <div style="text-align:right">
             <div class="pkg-price-wrap" style="justify-content:flex-end">
-              <span class="pkg-price-current" style="font-size:1.75rem;">$2.500.000</span>
+              <span class="pkg-price-current" style="font-size:1.75rem;">$2.100.000</span>
               <span class="pkg-price-original" style="font-size:1rem;">$3.500.000</span>
             </div>
             <div class="pkg-period">Pago único</div>
@@ -728,13 +728,13 @@
           <p>Asesoría inicial sin costo — te respondemos en menos de 24 horas.</p>
           <form id="contactForm">
             <div class="form-row">
-              <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre" required></div>
-              <div class="fg"><label>Negocio</label><input type="text" placeholder="Tu empresa o marca"></div>
+              <div class="fg"><label>Nombre</label><input type="text" name="name" placeholder="Tu nombre" required></div>
+              <div class="fg"><label>Negocio</label><input type="text" name="business" placeholder="Tu empresa o marca"></div>
             </div>
-            <div class="fg"><label>Email o WhatsApp</label><input type="text" placeholder="¿Cómo te contactamos?" required></div>
+            <div class="fg"><label>Email o WhatsApp</label><input type="text" name="email" placeholder="¿Cómo te contactamos?" required></div>
             <div class="fg">
               <label>¿Qué necesitas?</label>
-              <select>
+              <select name="service">
                 <option value="">Selecciona un servicio...</option>
                 <option>Branding con IA</option>
                 <option>Diseño para Redes Sociales</option>
@@ -748,7 +748,7 @@
                 <option>No sé aún — necesito asesoría</option>
               </select>
             </div>
-            <div class="fg"><label>Cuéntanos más</label><textarea placeholder="¿En qué etapa está tu negocio? ¿Qué quieres lograr?"></textarea></div>
+            <div class="fg"><label>Cuéntanos más</label><textarea name="message" placeholder="¿En qué etapa está tu negocio? ¿Qué quieres lograr?"></textarea></div>
             <button type="submit" class="form-btn" id="submitBtn">Enviar mensaje →</button>
           </form>
         </div>
@@ -840,7 +840,7 @@
     document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
 
     // ===== COUNTDOWN — vence 2026-06-14 =====
-    const deadline = new Date('2026-06-14T23:59:59').getTime();
+    const deadline = new Date('2026-06-24T23:59:59').getTime();
     function updateCountdown() {
       const now = Date.now();
       const diff = deadline - now;
@@ -879,7 +879,9 @@
           btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
           setTimeout(() => { btn.textContent = 'Enviar mensaje →'; btn.style.background = ''; btn.disabled = false; this.reset(); }, 3500);
         } else {
-          btn.textContent = 'Error al enviar — intenta de nuevo';
+          const data = await res.json();
+          console.log('Formspree error:', data);
+          btn.textContent = data?.errors?.[0]?.message || 'Error al enviar — intenta de nuevo';
           btn.disabled = false;
         }
       } catch(err) {
