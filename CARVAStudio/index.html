@@ -113,7 +113,7 @@
     /* ===== ABOUT ===== */
     #sobre { position:relative; }
     #sobre::before { content:''; position:absolute; top:0; right:0; width:600px; height:600px; background:radial-gradient(ellipse at top right,rgba(30,144,255,.06) 0%,transparent 60%); pointer-events:none; }
-    .about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:6rem; align-items:center; }
+    .about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:3.5rem; align-items:center; }
     .about-text p { color:var(--gray); line-height:1.9; margin-bottom:1rem; font-size:1rem; }
     .about-text p:last-of-type { margin-bottom:0; }
     .ai-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(30,144,255,.08); border:1px solid var(--blue-border); border-radius:6px; padding:.55rem 1rem; margin-top:1.75rem; font-size:.825rem; color:var(--blue); font-weight:500; }
@@ -125,17 +125,35 @@
     .stat-num { font-family:var(--serif); font-size:2.8rem; font-weight:700; background:linear-gradient(135deg,var(--blue),var(--blue-neon)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; margin-bottom:.4rem; }
     .stat-lbl { font-size:.825rem; color:var(--gray); font-weight:500; }
 
+    /* Enfoque image */
+    .enfoque-img-wrap { display:flex; align-items:center; }
+    .enfoque-img-wrap img {
+      width:100%; height:auto; display:block;
+      -webkit-mask-image:
+        linear-gradient(to right,  transparent 0%, black 7%),
+        linear-gradient(to left,   transparent 0%, black 7%),
+        linear-gradient(to bottom, transparent 0%, black 6%),
+        linear-gradient(to top,    transparent 0%, black 6%);
+      -webkit-mask-composite: source-in, source-in, source-in;
+      mask-image:
+        linear-gradient(to right,  transparent 0%, black 7%),
+        linear-gradient(to left,   transparent 0%, black 7%),
+        linear-gradient(to bottom, transparent 0%, black 6%),
+        linear-gradient(to top,    transparent 0%, black 6%);
+      mask-composite: intersect;
+    }
+
     /* ===== SERVICES ===== */
     #servicios { background:linear-gradient(180deg,var(--bg) 0%,#09152a 100%); }
-    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); column-gap:1.4rem; row-gap:3.5rem; }
+    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); column-gap:2.5rem; row-gap:5rem; }
     .svc-card { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:0; position:relative; overflow:hidden; transition:border-color .3s,transform .3s,box-shadow .3s; }
     .svc-card::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top left,rgba(30,144,255,.07) 0%,transparent 55%); opacity:0; transition:opacity .3s; }
     .svc-card:hover { border-color:var(--blue); transform:translateY(-6px); box-shadow:0 18px 55px rgba(30,144,255,.11); }
     .svc-card:hover::after { opacity:1; }
-    .svc-img { width:100%; margin:0; aspect-ratio:1/1; overflow:hidden; }
+    .svc-img { width:100%; margin:0; overflow:hidden; aspect-ratio:4/3; }
     .svc-text { padding:2rem; }
-    .svc-img img { width:100%; height:100%; object-fit:cover; transition:transform .55s cubic-bezier(.25,.46,.45,.94); display:block; }
-    .svc-card:hover .svc-img img { transform:scale(1.06); }
+    .svc-img img { width:100%; height:100%; object-fit:cover; object-position:center center; display:block; transition:transform .55s cubic-bezier(.25,.46,.45,.94); }
+    .svc-card:hover .svc-img img { transform:scale(1.04); }
     .svc-header {
       display: flex;
       align-items: center;
@@ -173,85 +191,10 @@
     .svc-wide .svc-desc { margin-bottom:0; }
     .svc-wide-features .svc-list { columns:2; column-gap:2rem; }
 
-    /* ===== PACKAGES ===== */
-    #paquetes { position:relative; }
-    #paquetes::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 80%,rgba(30,144,255,.05) 0%,transparent 65%); pointer-events:none; }
-
-    /* Launch banner */
-    .launch-banner {
-      background: linear-gradient(135deg, rgba(30,144,255,.12), rgba(0,143,255,.06));
-      border: 1px solid rgba(30,144,255,.35);
-      border-radius: 14px;
-      padding: 1.5rem 2rem;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-    }
-    .launch-banner-text { display:flex; align-items:center; gap:.75rem; }
-    .launch-fire { font-size:1.25rem; }
-    .launch-title { font-weight:700; color:var(--white); font-size:.95rem; }
-    .launch-sub { font-size:.78rem; color:var(--gray); margin-top:.1rem; }
-    .countdown { display:flex; align-items:center; gap:.5rem; }
-    .cd-block { display:flex; flex-direction:column; align-items:center; background:rgba(30,144,255,.1); border:1px solid var(--blue-border); border-radius:8px; padding:.5rem .75rem; min-width:52px; }
-    .cd-block span { font-family:var(--serif); font-size:1.4rem; font-weight:700; color:var(--blue); line-height:1; }
-    .cd-block small { font-size:.6rem; color:var(--gray); letter-spacing:.08em; text-transform:uppercase; margin-top:.15rem; }
-    .cd-sep { font-size:1.2rem; color:var(--blue); font-weight:700; margin-bottom:.3rem; }
-
-    .packages-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; margin-bottom:1.4rem; }
-    .pkg-card { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:2.25rem; position:relative; overflow:hidden; transition:transform .3s,box-shadow .3s,border-color .3s; }
-    .pkg-card:hover { transform:translateY(-4px); box-shadow:0 18px 55px rgba(30,144,255,.11); }
-    .pkg-card.hot { border-color:var(--blue); background:linear-gradient(145deg,#132136,#0d1e38); }
-    .pkg-card.hot::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); }
-    .pkg-card.hot:hover { box-shadow:0 18px 55px rgba(30,144,255,.22); }
-
-    .pkg-badge { display:inline-flex; align-items:center; background:rgba(30,144,255,.1); border:1px solid rgba(30,144,255,.25); color:var(--blue); font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.22rem .7rem; border-radius:100px; margin-bottom:.9rem; }
-    .pkg-card.hot .pkg-badge { background:var(--blue); color:#fff; border-color:var(--blue); }
-    .pkg-name { font-family:var(--serif); font-size:1.55rem; font-weight:700; color:var(--white); margin-bottom:.2rem; }
-    .pkg-target { font-size:.8rem; color:var(--gray); font-style:italic; margin-bottom:1rem; }
-
-    /* Discount price display */
-    .pkg-price-wrap { margin-bottom:.3rem; }
-    .pkg-price-current { font-family:var(--serif); font-size:1.65rem; font-weight:700; color:var(--blue); }
-    .pkg-price-original { font-size:.95rem; color:var(--gray); text-decoration:line-through; margin-left:.6rem; opacity:.7; }
-    .pkg-discount-badge { display:inline-flex; align-items:center; gap:.3rem; background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.3); color:#f87171; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:.18rem .6rem; border-radius:100px; margin-bottom:.3rem; }
-    .pkg-period { font-size:.78rem; color:var(--gray); margin-bottom:1.4rem; }
-    .pkg-divider { height:1px; background:var(--blue-border); margin:1.2rem 0; }
-    .pkg-list { list-style:none; }
-    .pkg-list li { font-size:.845rem; color:var(--gray); padding:.38rem 0 .38rem 1.4rem; position:relative; }
-    .pkg-list li::before { content:'✦'; position:absolute; left:0; color:var(--blue); font-size:.58rem; top:.52rem; }
-
-    /* Special package */
-    .pkg-special { grid-column:1/-1; border-color:rgba(30,144,255,.38); background:linear-gradient(135deg,#0f1d31,#0c1827); margin-bottom:1.4rem; }
-    .pkg-special::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--blue),var(--blue-neon)); }
-    .pkg-special-inner { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem; }
-    .pkg-special .pkg-list { display:grid; grid-template-columns:repeat(2,1fr); gap:0 3rem; }
-
-    /* À la carte */
-    .alacarte { background:var(--bg-card); border:1px solid var(--blue-border); border-radius:16px; padding:2.5rem; }
-    .alacarte h3 { font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:.35rem; }
-    .alacarte-sub { font-size:.875rem; color:var(--gray); margin-bottom:.75rem; }
-    .alacarte-discount-note { display:inline-flex; align-items:center; gap:.4rem; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.28); color:#f87171; font-size:.75rem; font-weight:700; padding:.28rem .85rem; border-radius:100px; margin-bottom:1.5rem; letter-spacing:.06em; }
-    .alacarte-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; margin-bottom:2rem; }
-    .ac-item { background:rgba(30,144,255,.04); border:1px solid var(--blue-border); border-radius:10px; padding:1.1rem 1.2rem; transition:border-color .25s,background .25s; position:relative; overflow:hidden; }
-    .ac-item:hover { border-color:var(--blue); background:rgba(30,144,255,.07); }
-    .ac-name { font-size:.865rem; color:var(--white); font-weight:500; margin-bottom:.5rem; }
-    .ac-price-wrap { display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap; }
-    .ac-price-current { font-size:.875rem; color:var(--blue); font-weight:700; }
-    .ac-price-original { font-size:.75rem; color:var(--gray); text-decoration:line-through; opacity:.7; }
-    .ac-save-badge { font-size:.6rem; font-weight:700; color:#f87171; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25); border-radius:4px; padding:.1rem .35rem; letter-spacing:.05em; }
-
-    .pay-conditions { display:flex; gap:1rem; flex-wrap:wrap; }
-    .pay-item { flex:1; min-width:200px; background:rgba(30,144,255,.05); border:1px solid var(--blue-border); border-radius:10px; padding:1.1rem 1.25rem; }
-    .pay-type { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:.3rem; }
-    .pay-desc { font-size:.855rem; color:var(--gray); }
-
     /* ===== GALLERY ===== */
     #galeria { background:linear-gradient(180deg,#09152a 0%,var(--bg) 100%); }
     .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
-    .gal-item { position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1; border:1px solid var(--blue-border); transition:border-color .3s; }
+    .gal-item { position:relative; border-radius:16px; overflow:hidden; aspect-ratio:3/4; border:1px solid var(--blue-border); transition:border-color .3s; }
     .gal-item:hover { border-color:var(--blue); }
     .gal-item img { width:100%; height:100%; object-fit:cover; transition:transform .55s cubic-bezier(.16,1,.3,1); display:block; }
     .gal-item:hover img { transform:scale(1.07); }
@@ -302,14 +245,7 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width:1024px) {
-      .services-grid { grid-template-columns:repeat(2,1fr); }
-      .svc-wide { grid-column:span 1; grid-template-columns:auto 1fr; }
-      .svc-wide .svc-wide-features { grid-column:1/-1; }
-      .svc-wide-features .svc-list { columns:1; }
-      .packages-grid { grid-template-columns:repeat(2,1fr); }
-      .alacarte-grid { grid-template-columns:repeat(2,1fr); }
       .about-grid { gap:3.5rem; }
-      .launch-banner { flex-direction:column; align-items:flex-start; }
     }
     @media (max-width:768px) {
       nav { padding:.875rem 1.25rem; }
@@ -317,27 +253,21 @@
       .hamburger { display:flex; }
       section { padding:4rem 1.25rem; }
       .about-grid { grid-template-columns:1fr; }
-      .stats-grid { grid-template-columns:1fr 1fr; }
+      .enfoque-grid { grid-template-columns:1fr 1fr; }
       .services-grid { grid-template-columns:1fr; }
       .svc-wide { grid-column:span 1; grid-template-columns:auto 1fr; }
-      .packages-grid { grid-template-columns:1fr; }
-      .pkg-special .pkg-list { grid-template-columns:1fr; }
-      .alacarte-grid { grid-template-columns:1fr 1fr; }
       .gallery-grid { grid-template-columns:1fr 1fr; gap:1rem; }
       .gallery-grid .gal-item:last-child { grid-column:span 2; }
       .contact-grid { grid-template-columns:1fr; gap:3rem; }
       .form-row { grid-template-columns:1fr; }
       .foot-inner { flex-direction:column; align-items:center; text-align:center; }
       .foot-links { display:none; }
-      .countdown { flex-wrap:wrap; justify-content:center; }
     }
     @media (max-width:480px) {
       .hero-actions { flex-direction:column; align-items:center; }
-      .stats-grid { grid-template-columns:1fr; }
-      .alacarte-grid { grid-template-columns:1fr; }
+      .enfoque-grid { grid-template-columns:1fr; }
       .gallery-grid { grid-template-columns:1fr; }
       .gallery-grid .gal-item:last-child { grid-column:span 1; }
-      .pay-conditions { flex-direction:column; }
     }
   </style>
 </head>
@@ -351,7 +281,6 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#sobre">Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#paquetes">Paquetes</a></li>
       <li><a href="#galeria">Galería</a></li>
       <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
     </ul>
@@ -396,31 +325,13 @@
           <p class="s-label reveal">Quiénes somos</p>
           <h2 class="s-title reveal">Tu marca merece más que improvisación</h2>
           <div class="rule reveal"></div>
-          <p class="reveal">En CARVA Studio ayudamos a emprendimientos y empresas a construir una identidad de marca sólida, moderna y estratégica a través del poder de la inteligencia artificial.</p>
-          <p class="reveal d1">Creamos contenido digital, branding, publicidad, diseño para redes sociales y páginas web de forma innovadora y sistematizada, usando herramientas de IA que producen resultados de alta calidad sin depender de grandes equipos de producción tradicional.</p>
-          <p class="reveal d2">A partir de fotografías de productos, desarrollamos contenido creativo y publicitario pensado para posicionar marcas y hacerlas destacar en el mundo digital. Nuestro objetivo: que cada negocio tenga una presencia digital profesional, estética y coherente.</p>
-          <div class="ai-badge reveal d3">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-            Potenciado por Inteligencia Artificial
-          </div>
+          <p class="reveal">En CARVA Studio ayudamos a emprendimientos, marcas personales y empresas a construir una presencia digital estratégica, estética y coherente.</p>
+          <p class="reveal d1">Creamos contenido, branding, piezas publicitarias, diseño para redes sociales, páginas web y soluciones digitales combinando estrategia, creatividad, inteligencia artificial, edición profesional y herramientas de diseño.</p>
+          <p class="reveal d2">No usamos la IA como reemplazo del criterio creativo, sino como una herramienta para optimizar procesos, explorar ideas y elevar la calidad visual de cada proyecto.</p>
+          <p class="reveal d3">Nuestro objetivo es que cada marca comunique mejor, se vea más profesional y tenga una identidad digital preparada para crecer.</p>
         </div>
-        <div class="stats-grid">
-          <div class="stat-card reveal-s d1">
-            <div class="stat-num" data-target="100" data-suffix="%">0</div>
-            <div class="stat-lbl">Enfocados en IA</div>
-          </div>
-          <div class="stat-card reveal-s d2">
-            <div class="stat-num" data-target="9">0</div>
-            <div class="stat-lbl">Servicios especializados</div>
-          </div>
-          <div class="stat-card reveal-s d3">
-            <div class="stat-num" data-target="5">0</div>
-            <div class="stat-lbl">Paquetes adaptados</div>
-          </div>
-          <div class="stat-card reveal-s d4">
-            <div class="stat-num" style="-webkit-text-fill-color:unset;background:none;color:var(--blue);">∞</div>
-            <div class="stat-lbl">Posibilidades de marca</div>
-          </div>
+        <div class="enfoque-img-wrap reveal d1">
+          <img src="assets/enfoque3.0.png" alt="Nuestro enfoque — CARVA Studio">
         </div>
       </div>
     </div>
@@ -437,225 +348,19 @@
       </div>
       <div class="services-grid">
 
-        <div class="svc-card reveal d1"><div class="svc-img"><img src="assets/01.png" alt="Branding con IA"></div></div>
-        <div class="svc-card reveal d2"><div class="svc-img"><img src="assets/02.png" alt="Diseño para Redes Sociales"></div></div>
-        <div class="svc-card reveal d3"><div class="svc-img"><img src="assets/03.png" alt="Contenido Publicitario con IA"></div></div>
-        <div class="svc-card reveal d4"><div class="svc-img"><img src="assets/04.png" alt="Gestión de Redes Sociales"></div></div>
-        <div class="svc-card reveal d5"><div class="svc-img"><img src="assets/05.png" alt="Páginas Web"></div></div>
-        <div class="svc-card reveal d6"><div class="svc-img"><img src="assets/06.png" alt="Estrategia Digital"></div></div>
-        <div class="svc-card reveal d7"><div class="svc-img"><img src="assets/gpt07.png" alt="Lanzamiento de Marca"></div></div>
-        <div class="svc-card reveal d8"><div class="svc-img"><img src="assets/gpt08.png" alt="Auditoría Digital"></div></div>
-        <div class="svc-card reveal d9"><div class="svc-img"><img src="assets/gpt09.png" alt="Automatización de Procesos"></div></div>
+        <div class="svc-card reveal d1"><div class="svc-img"><img src="assets/1.Branding.png" alt="Branding con IA"></div></div>
+        <div class="svc-card reveal d2"><div class="svc-img"><img src="assets/2.Diseñoredessociales.png" alt="Diseño para Redes Sociales"></div></div>
+        <div class="svc-card reveal d3"><div class="svc-img"><img src="assets/3.Contenidopublicitario.png" alt="Contenido Publicitario con IA"></div></div>
+        <div class="svc-card reveal d4"><div class="svc-img"><img src="assets/4.pagweb.png" alt="Páginas Web"></div></div>
+        <div class="svc-card reveal d5"><div class="svc-img"><img src="assets/5.estrategia.png" alt="Estrategia Digital"></div></div>
+        <div class="svc-card reveal d6"><div class="svc-img"><img src="assets/6.lanzamiento.png" alt="Lanzamiento de Marca"></div></div>
+        <div class="svc-card reveal d7"><div class="svc-img"><img src="assets/7.Auditoria.png" alt="Auditoría Digital"></div></div>
+        <div class="svc-card reveal d8"><div class="svc-img"><img src="assets/8.automatiza.png" alt="Automatización de Procesos"></div></div>
 
       </div>
     </div>
   </section>
 
-  <!-- ===== PAQUETES ===== -->
-  <section id="paquetes">
-    <div class="container">
-      <div class="section-head">
-        <p class="s-label reveal">Inversión</p>
-        <h2 class="s-title reveal">Un paquete para cada etapa</h2>
-        <div class="rule rule-center reveal"></div>
-        <p class="s-desc reveal">Desde el primer logo hasta la presencia digital completa. Todos los precios en pesos colombianos (COP).</p>
-      </div>
-
-      <!-- Countdown banner -->
-      <div class="launch-banner reveal">
-        <div class="launch-banner-text">
-          <div class="launch-fire">🔥</div>
-          <div>
-            <div class="launch-title">Precios de Lanzamiento — Solo durante el primer mes</div>
-            <div class="launch-sub">Oferta válida por tiempo limitado · Precios regulares una vez venza el contador</div>
-          </div>
-        </div>
-        <div class="countdown">
-          <div class="cd-block"><span id="cd-d">00</span><small>Días</small></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-block"><span id="cd-h">00</span><small>Horas</small></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-block"><span id="cd-m">00</span><small>Min</small></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-block"><span id="cd-s">00</span><small>Seg</small></div>
-        </div>
-      </div>
-
-      <div class="packages-grid">
-
-        <!-- STARTER -->
-        <div class="pkg-card reveal d1">
-          <div class="pkg-badge">01 · Starter</div>
-          <div class="pkg-name">Identidad Visual</div>
-          <div class="pkg-target">Para negocios nuevos que necesitan existir visualmente</div>
-          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
-          <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$540.000</span>
-            <span class="pkg-price-original">$900.000</span>
-          </div>
-          <div class="pkg-period">Pago único</div>
-          <div class="pkg-divider"></div>
-          <ul class="pkg-list">
-            <li>Logo + variaciones (3 versiones)</li>
-            <li>Paleta de colores y tipografías</li>
-            <li>Manual de marca básico</li>
-            <li>Kit de redes sociales (portada, highlights, plantilla)</li>
-            <li>1 ronda de ajustes incluida</li>
-          </ul>
-        </div>
-
-        <!-- PRESENCIA -->
-        <div class="pkg-card reveal d2">
-          <div class="pkg-badge">02 · Presencia</div>
-          <div class="pkg-name">Gestión Mensual de Redes</div>
-          <div class="pkg-target">Ya tienes marca y quieres activar tus redes sociales</div>
-          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
-          <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$720.000</span>
-            <span class="pkg-price-original">$1.200.000</span>
-          </div>
-          <div class="pkg-period">Por mes</div>
-          <div class="pkg-divider"></div>
-          <ul class="pkg-list">
-            <li>Estrategia y calendario mensual</li>
-            <li>12 piezas diseñadas (posts + stories con copy)</li>
-            <li>Community management</li>
-            <li>Reporte mensual de métricas</li>
-          </ul>
-        </div>
-
-        <!-- IMPULSO -->
-        <div class="pkg-card hot reveal d3">
-          <div class="pkg-badge">⭐ Más popular · Impulso</div>
-          <div class="pkg-name">Marca + Redes + Contenido IA</div>
-          <div class="pkg-target">Emprendedores que quieren arrancar en serio desde cero</div>
-          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
-          <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$1.320.000</span>
-            <span class="pkg-price-original">$2.200.000</span>
-          </div>
-          <div class="pkg-period">Por mes</div>
-          <div class="pkg-divider"></div>
-          <ul class="pkg-list">
-            <li>Branding completo (logo, manual, paleta)</li>
-            <li>Kit de redes listo (plantillas + highlights)</li>
-            <li>16 piezas mensuales con IA</li>
-            <li>Contenido publicitario IA (hasta 4 piezas/mes)</li>
-            <li>Community management activo</li>
-          </ul>
-        </div>
-
-        <!-- PRO -->
-        <div class="pkg-card reveal d4">
-          <div class="pkg-badge">04 · Pro</div>
-          <div class="pkg-name">Presencia Digital Completa</div>
-          <div class="pkg-target">Negocios listos para escalar su presencia digital</div>
-          <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
-          <div class="pkg-price-wrap">
-            <span class="pkg-price-current">$3.000.000</span>
-            <span class="pkg-price-original">$5.000.000</span>
-          </div>
-          <div class="pkg-period">Web única + desde $1.500.000/mes</div>
-          <div class="pkg-divider"></div>
-          <ul class="pkg-list">
-            <li>Todo el paquete Impulso</li>
-            <li>Página web profesional (5 secciones + SEO)</li>
-            <li>2 piezas para pauta (Facebook / Instagram Ads)</li>
-            <li>Estrategia digital completa</li>
-            <li>Reporte mensual detallado</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- Lanzamiento especial -->
-      <div class="pkg-card pkg-special reveal">
-        <div class="pkg-special-inner">
-          <div>
-            <div class="pkg-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-neon));color:#fff;border:none;">✦ Paquete Especial</div>
-            <div class="pkg-name">Lanzamiento de Marca</div>
-            <div class="pkg-target">Todo lo que necesitas para despegar con el pie derecho</div>
-            <div class="pkg-discount-badge">🔥 40% OFF · Lanzamiento</div>
-          </div>
-          <div style="text-align:right">
-            <div class="pkg-price-wrap" style="justify-content:flex-end">
-              <span class="pkg-price-current" style="font-size:1.75rem;">$2.100.000</span>
-              <span class="pkg-price-original" style="font-size:1rem;">$3.500.000</span>
-            </div>
-            <div class="pkg-period">Pago único</div>
-          </div>
-        </div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-list">
-          <li>Branding completo</li>
-          <li>Kit de redes listo para publicar</li>
-          <li>Estrategia de contenido del primer mes</li>
-          <li>Primeros 12 posts diseñados con copy</li>
-        </ul>
-      </div>
-
-      <!-- À la carte -->
-      <div class="alacarte reveal">
-        <h3>Servicios Individuales — À la Carte</h3>
-        <p class="alacarte-sub">¿Solo necesitas algo puntual? También podemos ayudarte.</p>
-        <div class="alacarte-discount-note">
-          🔥 40% de descuento por lanzamiento — válido por tiempo limitado
-        </div>
-        <div class="alacarte-grid">
-          <div class="ac-item">
-            <div class="ac-name">Logo únicamente</div>
-            <div class="ac-price-wrap">
-              <span class="ac-price-current">$300.000</span>
-              <span class="ac-price-original">$500.000</span>
-              <span class="ac-save-badge">-40%</span>
-            </div>
-          </div>
-          <div class="ac-item">
-            <div class="ac-name">Página web sencilla</div>
-            <div class="ac-price-wrap">
-              <span class="ac-price-current">$1.800.000</span>
-              <span class="ac-price-original">$3.000.000</span>
-              <span class="ac-save-badge">-40%</span>
-            </div>
-          </div>
-          <div class="ac-item">
-            <div class="ac-name">Auditoría de perfil de Instagram</div>
-            <div class="ac-price-wrap">
-              <span class="ac-price-current">$150.000</span>
-              <span class="ac-price-original">$250.000</span>
-              <span class="ac-save-badge">-40%</span>
-            </div>
-          </div>
-          <div class="ac-item">
-            <div class="ac-name">Pack de 10 piezas diseñadas</div>
-            <div class="ac-price-wrap">
-              <span class="ac-price-current">$400.000</span>
-              <span class="ac-price-original">$600.000</span>
-              <span class="ac-save-badge">-40%</span>
-            </div>
-          </div>
-          <div class="ac-item">
-            <div class="ac-name">Contenido IA de producto (5 imágenes)</div>
-            <div class="ac-price-wrap">
-              <span class="ac-price-current">$300.000</span>
-              <span class="ac-price-original">$450.000</span>
-              <span class="ac-save-badge">-40%</span>
-            </div>
-          </div>
-        </div>
-        <div class="pay-conditions">
-          <div class="pay-item">
-            <div class="pay-type">Paquetes únicos</div>
-            <div class="pay-desc">50% anticipo — 50% al entregar el proyecto</div>
-          </div>
-          <div class="pay-item">
-            <div class="pay-type">Paquetes mensuales</div>
-            <div class="pay-desc">Pago completo los primeros 5 días del mes</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== GALERÍA ===== -->
   <section id="galeria">
@@ -668,16 +373,16 @@
       </div>
       <div class="gallery-grid">
         <div class="gal-item reveal d1">
-          <img src="assets/img 1.png" alt="Estrategia, Creatividad y Resultados — CARVA Studio">
-          <div class="gal-overlay"><div class="gal-caption">Estrategia · Creatividad · Resultados</div></div>
+          <img src="assets/bloomref.jpeg" alt="Bloom — CARVA Studio">
+          <div class="gal-overlay"><div class="gal-caption">Bloom</div></div>
         </div>
         <div class="gal-item reveal d2">
-          <img src="assets/img 2.png" alt="Estrategia no suerte — CARVA Studio">
-          <div class="gal-overlay"><div class="gal-caption">Estrategia, no suerte</div></div>
+          <img src="assets/gcpref.jpeg" alt="GCP — CARVA Studio" style="object-position:center top;">
+          <div class="gal-overlay"><div class="gal-caption">GCP</div></div>
         </div>
         <div class="gal-item reveal d3">
-          <img src="assets/img 3.png" alt="Tu mejor inversión — CARVA Studio">
-          <div class="gal-overlay"><div class="gal-caption">Tu mejor inversión eres tú y tu marca</div></div>
+          <img src="assets/tartref.png" alt="Tart — CARVA Studio">
+          <div class="gal-overlay"><div class="gal-caption">Tart</div></div>
         </div>
       </div>
     </div>
@@ -702,13 +407,13 @@
                 <div class="method-val">+57 314 281 4299</div>
               </div>
             </a>
-            <a href="mailto:carvastudiodigital@gmail.com" class="method reveal d2">
+            <a href="mailto:marketing@carvastudio.com" class="method reveal d2">
               <div class="method-ico">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </div>
               <div>
                 <div class="method-lbl">Email</div>
-                <div class="method-val">carvastudiodigital@gmail.com</div>
+                <div class="method-val">marketing@carvastudio.com</div>
               </div>
             </a>
             <a href="https://instagram.com/carvastudiodigital" class="method reveal d3" target="_blank" rel="noopener">
@@ -769,7 +474,6 @@
       <ul class="foot-links">
         <li><a href="#sobre">Nosotros</a></li>
         <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#paquetes">Paquetes</a></li>
         <li><a href="#galeria">Galería</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -780,7 +484,7 @@
         <a href="https://wa.me/573142814299" class="s-ico" target="_blank" rel="noopener" title="WhatsApp">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </a>
-        <a href="mailto:carvastudiodigital@gmail.com" class="s-ico" title="Email">
+        <a href="mailto:marketing@carvastudio.com" class="s-ico" title="Email">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </a>
       </div>
@@ -839,29 +543,6 @@
     }, {threshold:.6});
     document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
 
-    // ===== COUNTDOWN — vence 2026-06-14 =====
-    const deadline = new Date('2026-06-24T23:59:59').getTime();
-    function updateCountdown() {
-      const now = Date.now();
-      const diff = deadline - now;
-      if (diff <= 0) {
-        document.getElementById('cd-d').textContent = '00';
-        document.getElementById('cd-h').textContent = '00';
-        document.getElementById('cd-m').textContent = '00';
-        document.getElementById('cd-s').textContent = '00';
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
-      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
 
     // ===== FORM — Formspree =====
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
